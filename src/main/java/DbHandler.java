@@ -1,9 +1,19 @@
-package Model;
+import Model.Class;
+import Model.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DbHandler {
+    public static final String user_table = "User";
+    public static final String class_table = "Class";
+
+    public static final String attendence_table = "Attendance";
+    public static final String classname = "classname";
+    public static final String id = "id";
+    public static final String  username = "username";
+    public static final String password = "password";
 
     public static Connection connect(){
         Connection conn = null;
@@ -16,16 +26,9 @@ public class DbHandler {
         }
         return conn;
     }
-    public static final String user_table = "User";
-    public static final String class_table = "Class";
 
-    public static final String attendence_table = "Attendance";
-    public static final String classname = "classname";
-    public static final String id = "id";
-    public static final String  username = "username";
-    public static final String password = "password";
 
-    public static void insert_user(Connection conn, User u) {
+    public static void users(Connection conn, User u) {
 
         String sql = "INSERT INTO " + user_table + " (username,password)" + "VALUES (?,?)";
 
@@ -44,7 +47,7 @@ public class DbHandler {
 
 
     }
-    public static void insert_class(Connection conn, Class c) {
+    public static void classes(Connection conn, Class c) {
 
         String sql = "INSERT INTO " + class_table + " (classname)" + "VALUES (?)";
 
@@ -62,7 +65,7 @@ public class DbHandler {
 
 
     }
-    public static void insert_attendence(Connection conn,User u ,Class c){
+    public static void attendences(Connection conn,User u ,Class c){
         String sql = "INSERT INTO " + attendence_table + " (userid,classid)" + "VALUES (?,?)";
 
 
