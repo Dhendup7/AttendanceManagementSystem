@@ -8,24 +8,21 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-
-
-        Scanner scanner = new Scanner(System.in);
         Connection conn = DbHandler.connect();
 
-        List<User> user_list = DbHandler.display_user(conn);
-        List<Class> class_list = DbHandler.display_class(conn);
+        Scanner scanner = new Scanner(System.in);
 
-        boolean end = false;
 
-        while(!end){
-            System.out.println("1. Insert User");
-            System.out.println("2. Insert Classes");
-            System.out.println("3. Insert Attendance");
-            System.out.println("4. Display All Users");
-            System.out.println("5. Display All Classes");
-            System.out.println("6. End");
+        List<User> user_list = DbHandler.userdata(conn);
+        List<Class> class_list = DbHandler.classdata(conn);
+
+
+            System.out.println("1. User");
+            System.out.println("2. Classes");
+            System.out.println("3.Attendance");
+            System.out.println("4. Users data");
+            System.out.println("5. Classes data");
+
             int choice = scanner.nextInt();
 
             switch(choice){
@@ -34,15 +31,17 @@ public class Main {
                     String username = scanner.next();
                     System.out.println("Enter your desired password:");
                     String password = scanner.next();
-                    User user = new User(0,username,password);
+                    User user = new User(1,username,password);
                     DbHandler.users(conn,user);
+                    System.out.println("Data inserted");
 
                     break;
                 case 2:
                     System.out.println("Enter your classname:");
                     String classname = scanner.next();
-                    Class classobject = new Class(0,classname);
-                    DbHandler.classes(conn,classobject);
+                    Class classd = new Class(1,classname);
+                    DbHandler.classes(conn,classd);
+                    System.out.println("Data inserted");
                     break;
                 case 3:
                     System.out.println("Enter your username:");
@@ -57,9 +56,11 @@ public class Main {
                                 System.out.println("Enter your classname:");
                                 classname = scanner.next();
 
-                                user = new User(0,username,password);
-                                classobject = new Class(0,classname);
-                                DbHandler.attendences(conn,user,classobject);
+                                user = new User(1,username,password);
+                                classd = new Class(1,classname);
+                                DbHandler.attendences(conn,user,classd);
+
+                                System.out.println("Completed");
                             }
                         }
                     }
@@ -68,20 +69,17 @@ public class Main {
                     break;
                 case 4:
                     conn = DbHandler.connect();
-                    user_list = DbHandler.display_user(conn);
+                    user_list = DbHandler.userdata(conn);
                     for (User u : user_list ) {
                         System.out.println(u.getId()+"."+" Name: " + u.getUsername());
                     }
                     break;
                 case 5:
                     conn = DbHandler.connect();
-                    class_list = DbHandler.display_class(conn);
+                    class_list = DbHandler.classdata(conn);
                     for (Class c : class_list ) {
                         System.out.println(c.getId()+"."+" Name: " + c.getClassname());
                     }
-                    break;
-                case 6:
-                    end = true;
                     break;
 
                 default:
@@ -90,4 +88,3 @@ public class Main {
             }
         }
     }
-}

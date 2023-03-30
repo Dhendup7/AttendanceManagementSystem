@@ -82,7 +82,7 @@ public class DbHandler {
         }
     }
 
-    public static List<User> display_user(Connection conn) {
+    public static List<User> userdata(Connection conn) {
 
         String sql = "SELECT * FROM " + user_table;
 
@@ -106,7 +106,7 @@ public class DbHandler {
         return user_list;
     }
 
-    public static List<Class> display_class(Connection conn) {
+    public static List<Class> classdata(Connection conn) {
 
         String sql = "SELECT * FROM " + class_table;
 
